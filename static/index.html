@@ -9,18 +9,19 @@
 </head>
 
 <body>
-    <p>
-        <form id="form">
-            <label for="query">Query</label>
-            <input type="text" id="query" name="query">
-            <button type="submit">Search</button>
-        </form>
-    </p>
-    <p>
-        <table id="table">
-          <tbody id="table-body"></tbody>
-        </table>
-    </p>
+  <div id="navbar">
+    <h2 id="title">shakesearch</h2>
+    <form id="form">
+      <label for="query">Search a word or phrase from Shakespeare</label>
+      <div>
+        <input type="text" id="query" name="query" placeholder="ie. hamlet">
+        <button id="search" type="submit">Search</button>
+      </div>
+    </form>
+  </div>
+  <table id="table">
+    <tbody id="table-body"></tbody>
+  </table>
   <script src="app.js"></script>
 </body>
 
