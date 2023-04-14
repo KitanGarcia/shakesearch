@@ -79,27 +79,38 @@ body {
 
 #table {
   position: relative;
-  border-collapse: collapse;
   top: 180px;
   width: 80%;
   margin: auto;
+  color: #A7ACBA;
+  border-spacing: 0;
 }
 
 #first-row {
   position: sticky;
-  top: 148px;
-  background-color: rgb(29 29 29);
+  top: 150px;
+  background-color: #A7ACBA;
   font-size: x-large;
-}
-
-th {
+  color: white;
   background-color: #313133;
 }
 
+
 td, th {
-  border: 2px solid rgb(99 100 101);
+  border: 2px solid #A7ACBA;
+  padding: 10px;
 }
 
 .result-number {
   text-align: center;
+}
+
+tr {
+  cursor: pointer;
+}
+
+tr:hover {
+  color: white;
+  background-color: #313133;
+  border: 2px solid white;
 }
