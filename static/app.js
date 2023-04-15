@@ -12,11 +12,13 @@ const Controller = {
 
   updateTable: (results) => {
     const table = document.getElementById("table-body");
-    const rows = [];
-    for (let result of results) {
-      rows.push(`<tr>${result}<tr/>`);
+    const rows = ["<tr id='first-row'><th>Result</th><th>Text</th></tr>"];
+    for (let i = 0; i < results.length; i++) {
+      rows.push(
+        `<tr><td class="result-number">${i + 1}</td><td>${results[i]}</td></tr>`
+      );
     }
-    table.innerHTML = rows;
+    table.innerHTML = rows.join("");
   },
 };
 
