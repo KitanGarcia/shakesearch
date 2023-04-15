@@ -12,8 +12,11 @@ const Controller = {
 
   updateTable: (results) => {
     const table = document.getElementById("table-body");
-    const rows = ["<tr id='first-row'><th>Result</th><th>Text</th></tr>"];
+    const rows = [];
     for (let i = 0; i < results.length; i++) {
+      if (i === 0) {
+        rows.push("<tr id='first-row'><th>Result</th><th>Text</th></tr>");
+      }
       rows.push(
         `<tr><td class="result-number">${i + 1}</td><td>${results[i]}</td></tr>`
       );
