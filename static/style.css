@@ -114,3 +114,7 @@ tr:hover {
   background-color: #313133;
   border: 2px solid white;
 }
+
+.highlight {
+  color: aqua;
+}
