@@ -1,6 +1,15 @@
+const loader = htmlToElement(
+  "<div class='loader hidden'><img class='loading-gif' src='https://thumbs.gfycat.com/MatureBestBlackbear-max-1mb.gif' alt='loading gif'></div>"
+);
+const table = document.getElementById("table");
+document.body.appendChild(loader);
+
 const Controller = {
   search: (ev) => {
     ev.preventDefault();
+    loader.classList.toggle("hidden");
+    table.classList.toggle("hidden");
+
     const form = document.getElementById("form");
     const data = Object.fromEntries(new FormData(form));
     const response = fetch(`/search?q=${data.query}`).then((response) => {
@@ -11,18 +20,19 @@ const Controller = {
   },
 
   updateTable: (results, query) => {
-    const table = document.getElementById("table-body");
     const rows = [];
 
     // Regex to find occurence of string as word(s) as opposed to as substring
     const queryRegEx = new RegExp("\\b" + query.value + "\\b", "ig");
 
     if (results.length === 0) {
-      alert("String not present in Shakespeare's works. Please try another.");
+      alert(
+        "Your search is not present in Shakespeare's works. Please try another."
+      );
       return;
     }
 
-    // Re-index to filter only count matches of entire word as opposed to substring
+    // Re-index to only count matches of entire word as opposed to substring
     let resultCount = 0;
     for (let i = 0; i < results.length; i++) {
       if (i === 0) {
@@ -38,6 +48,8 @@ const Controller = {
       }
     }
     table.innerHTML = rows.join("");
+    table.classList.toggle("hidden");
+    loader.classList.toggle("hidden");
   },
 };
 
@@ -58,6 +70,13 @@ const highlightQuery = (passage, queryRegEx) => {
   passage += matchedSubstrings[matchedSubstrings.length - 1];
   return passage;
 };
+
+function htmlToElement(html) {
+  var template = document.createElement("template");
+  html = html.trim();
+  template.innerHTML = html;
+  return template.content.firstChild;
+}
 
 const form = document.getElementById("form");
 form.addEventListener("submit", Controller.search);
