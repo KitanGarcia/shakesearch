@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+  "strings"
 )
 
 func main() {
@@ -68,15 +69,25 @@ func (s *Searcher) Load(filename string) error {
 		return fmt.Errorf("Load: %w", err)
 	}
 	s.CompleteWorks = string(dat)
-	s.SuffixArray = suffixarray.New(dat)
+  // Convert to lowercase to compare wth lowercase query for case insensitivity
+	s.SuffixArray = suffixarray.New([]byte(strings.ToLower(string(dat))))
 	return nil
 }
 
 func (s *Searcher) Search(query string) []string {
-	idxs := s.SuffixArray.Lookup([]byte(query), -1)
+	idxs := s.SuffixArray.Lookup([]byte(strings.ToLower(query)), -1)
 	results := []string{}
 	for _, idx := range idxs {
-		results = append(results, s.CompleteWorks[idx-250:idx+250])
+    lowerBound := 0
+    upperBound := len(s.CompleteWorks) - 1
+    if idx > 250 {
+      lowerBound = idx - 250
+    }
+
+    if idx + 250 < len(s.CompleteWorks) - 1 {
+      upperBound =  idx + 250
+    }
+		results = append(results, s.CompleteWorks[lowerBound:upperBound])
 	}
 	return results
 }
